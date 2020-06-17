@@ -126,9 +126,9 @@ async function retrieveResource(req: express.Request, res: express.Response) {
  * @apiName Fetch Document Language and Versions
  * @apiGroup Documents
  *
- * @apiDescription Fetch document.
+ * @apiDescription Fetch document versions.
  *
- * @apiSuccessExample {json} Document
+ * @apiSuccessExample {json} Document Versions
  *     HTTP/1.1 200 OK
  *
  * @apiUse ParamValidationErrors

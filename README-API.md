@@ -120,7 +120,7 @@ HTTP/1.1 500 Internal Server Error
 ## <a name='retrive-document-versions'></a> Retrive document versions
 [Back to top](#top)
 
-<p>Fetch document.</p>
+<p>Fetch document versions.</p>
 
 	GET /resources/:project/versions
 
@@ -130,7 +130,7 @@ HTTP/1.1 500 Internal Server Error
 
 ### Success Response
 
-Document
+Document Versions
 
 ```
 HTTP/1.1 200 OK
