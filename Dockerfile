@@ -9,7 +9,6 @@ RUN npm run build
 # Puerto del servidor
 EXPOSE 3000
 
-ENV MONGO_URL mongodb://host.docker.internal/semver_server
-ENV RABBIT_URL amqp://host.docker.internal
+ENV MONGODB mongodb://host.docker.internal/resources_server
 
 CMD cd dist; node server.js
