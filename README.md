@@ -48,7 +48,113 @@ Once running backend documentation is exposed on [localhost:3000](http://localho
 
 Everything is configured using environment args, see utils/environment.ts
 
-## Apidoc
+## Adding some data
 
-[Apidoc](http://apidocjs.com/)
+```bash
+curl --location --request POST 'http://localhost:3000/resources/hola_mundo/es/1.0.0' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+   {
+      "key":"text_1",
+      "value":"Hola"
+   },
+   {
+      "key":"text_2",
+      "value":"Mundo 1.0.0"
+   }
+]'
 
+curl --location --request POST 'http://localhost:3000/resources/hola_mundo/es/1.0.1' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+   {
+      "key":"text_1",
+      "value":"Hola"
+   },
+   {
+      "key":"text_2",
+      "value":"Mundo 1.0.1"
+   }
+]'
+
+curl --location --request POST 'http://localhost:3000/resources/hola_mundo/es/1.0.2' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+   {
+      "key":"text_1",
+      "value":"Hola"
+   },
+   {
+      "key":"text_2",
+      "value":"Mundo 1.0.2"
+   }
+]'
+
+curl --location --request POST 'http://localhost:3000/resources/hola_mundo/es/1.2.0' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+   {
+      "key":"text_1",
+      "value":"Hola"
+   },
+   {
+      "key":"text_2",
+      "value":"Mundo 1.2.0"
+   }
+]'
+
+curl --location --request POST 'http://localhost:3000/resources/hola_mundo/es/2.0.0' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+   {
+      "key":"text_1",
+      "value":"Hola"
+   },
+   {
+      "key":"text_2",
+      "value":"Mundo 2.0.0"
+   }
+]'
+```
+
+
+## Get document
+
+We can use any semver wildcard  [semver](https://devhints.io/semver) to retrieve documents.
+Examples :
+
+### Specific version
+
+```bash
+curl --location --request GET 'http://localhost:3000/resources/hola_mundo/es/1.0.0'
+```
+
+### Get most recent fix
+
+```bash
+curl --location --request GET 'http://localhost:3000/resources/hola_mundo/es/1.0.*'
+```
+
+### Get major recent version
+
+```bash
+curl --location --request GET 'http://localhost:3000/resources/hola_mundo/es/1.*'
+```
+
+### Get latest version
+
+```bash
+curl --location --request GET 'http://localhost:3000/resources/hola_mundo/es/*'
+```
+
+## List project names
+
+```bash
+curl --location --request GET 'http://localhost:3000/projects'
+```
+
+## Get language and versions by project
+
+```bash
+curl --location --request GET 'http://localhost:3000/resources/hola_mundo/versions'
+```
