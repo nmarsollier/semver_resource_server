@@ -7,7 +7,8 @@ import * as express from "express";
 import * as helmet from "helmet";
 import * as env from "../utils/environment";
 import * as error from "../utils/error";
-import * as routes from "./routes";
+import * as resourceRoutes from "../resources/routes";
+import * as projectRoutes from "../projects/routes";
 import * as path from "path";
 require("express-async-errors");
 
@@ -49,7 +50,8 @@ export function init(): express.Express {
 
 
   // Iniciamos las rutas
-  routes.init(app);
+  resourceRoutes.init(app);
+  projectRoutes.init(app);
 
   // Para el manejo de errores, para que los loguee en la consola
   app.use(error.handle);

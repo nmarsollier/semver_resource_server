@@ -1,6 +1,7 @@
 "use strict";
 
 import { Document, model, Schema } from "mongoose";
+import { stringify } from "querystring";
 
 export interface Resource extends Document {
   project: string;
@@ -64,6 +65,37 @@ export async function findVersions(project: string, language: string): Promise<s
   return Promise.resolve(versions.map(value => {
     return value.semver;
   }));
+}
+
+export interface Language {
+  language: string;
+  versions: string[];
+}
+
+export async function findLanguages(project: string): Promise<Language[]> {
+  const langs = new Array<Language>();
+
+  const versions = await ResourceModel.find(
+    {
+      project,
+      enabled: true
+    }, ["language", "semver"]
+  );
+
+  versions.forEach(version => {
+    const langInArray = langs.find(l => {
+      return l.language === version.language;
+    });
+    if (langInArray) {
+      langInArray.versions.push(version.semver);
+    } else {
+      langs.push({
+        language: version.language,
+        versions: [version.semver],
+      });
+    }
+  });
+  return Promise.resolve(langs);
 }
 
 export const ResourceModel = model<Resource>("resources", ResourceSchema);

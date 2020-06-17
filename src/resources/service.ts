@@ -5,6 +5,7 @@ import * as schema from "./schema";
 import * as semver from "semver";
 // @ts-ignore
 import * as bcp47 from "bcp47-validate";
+import * as projectService from "../projects/service";
 
 export async function create(project: string, language: string, version: string, values: schema.ResourceValue[]): Promise<string> {
     try {
@@ -20,6 +21,9 @@ export async function create(project: string, language: string, version: string,
         resource.values = values;
 
         const t = await resource.save();
+
+        projectService.create(resource.project);
+
         return Promise.resolve(t.semver);
     } catch (err) {
         return Promise.reject(err);
@@ -54,6 +58,17 @@ export async function fetch(project: string, language: string, version: string):
         return Promise.reject(err);
     }
 }
+
+
+export async function fetchLanguages(project: string): Promise<schema.Language[]> {
+    try {
+        const versions = await schema.findLanguages(project);
+        return Promise.resolve(versions);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
 
 async function validateDocumentExist(project: string, language: string, semver: string): Promise<void> {
     const exist = await schema.findValid(project, language, semver);
