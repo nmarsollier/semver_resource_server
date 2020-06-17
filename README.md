@@ -22,6 +22,18 @@ npm install
 npm start
 ```
 
+## Docker Run
+
+```bash
+docker build --no-cache -t semver_resource_server https://raw.githubusercontent.com/nmarsollier/semver_resource_server/master/Dockerfile
+
+# Mac || Windows
+docker run -it -d --name semver_resource_server -p 3000:3000 semver_resource_server
+
+# Linux
+docker run --add-host host.docker.internal:172.17.0.1 -it -d --name semver_resource_server -p 3000:3000 semver_resource_server
+```
+
 Once running backend documentation is exposed on [localhost:3000](http://localhost:3000/)
 
 [API Docs](./README-API.md)
