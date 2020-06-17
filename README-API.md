@@ -1,7 +1,7 @@
 <a name="top"></a>
-# Auth Service v0.1.0
+# Semver Resource Service v0.1.0
 
-Microservicio de Autentificación
+Microservicio de Recursos
 
 - [Documents](#documents)
 	- [Add Document Version](#add-document-version)

@@ -1,7 +1,7 @@
 {
-  "name": "Auth Service",
+  "name": "i18n Semver Resource Service",
   "version": "0.1.0",
-  "description": "Microservicio de Autentificación",
-  "title": "Microservicio de Autentificación",
+  "description": "i18n Resource Service",
+  "title": "i18n Resource Service",
   "url" : ""
 }
