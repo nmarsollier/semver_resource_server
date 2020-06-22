@@ -1,7 +1,6 @@
 "use strict";
 
 import { Document, model, Schema } from "mongoose";
-import { stringify } from "querystring";
 
 export interface Resource extends Document {
   project: string;

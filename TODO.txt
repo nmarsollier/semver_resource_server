@@ -1,9 +1,10 @@
 
+
+
+
 Agregar caches de versiones actuales de documento
 
 Agregar cache de documento para get
 
 Recibir opcionalmente un parametro o header con la version actual y solo devolver resultados
 si realmente existe una version nueva sino devolver 204
-
-Ordenar el codigo
