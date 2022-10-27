@@ -55,5 +55,6 @@
                 ]
             }
         ]
-    }
+    },
+    "ignorePatterns": ["node_modules/**"]
 }

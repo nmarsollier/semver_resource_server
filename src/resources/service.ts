@@ -1,24 +1,29 @@
 "use strict";
 
+import * as semver from "semver";
 import * as error from "../utils/error";
 import * as schema from "./schema";
-import * as semver from "semver";
 // @ts-ignore
 import * as bcp47 from "bcp47-validate";
+import postResourceSchema from "../../schema/resource-value-schema.json";
 import * as projectService from "../projects/service";
+import { validateSchema } from "../utils/validate-schema";
 
-export async function create(project: string, language: string, version: string, values: schema.ResourceValue[]): Promise<string> {
+
+export async function create(project: string, language: string, version: string, values: string): Promise<string> {
     try {
+        validateDocument(values);
         const validSemver = validateSemver(version);
         validateProjectName(project);
         validateLanguaje(language);
         await validateDocumentExist(project, language, version);
 
+
         const resource: schema.Resource = new schema.ResourceModel();
         resource.project = project;
         resource.language = language;
         resource.semver = validSemver;
-        resource.values = values;
+        resource.values = (values as unknown) as schema.ResourceValue[];
 
         const t = await resource.save();
 
@@ -33,7 +38,7 @@ export async function create(project: string, language: string, version: string,
 export async function invalidate(project: string, language: string, version: string): Promise<string> {
     try {
         const resource = await schema.findValid(project, language, version);
-        if(!resource) {
+        if (!resource) {
             throw error.newError(404, "Document not found");
         }
         resource.enabled = false;
@@ -47,10 +52,10 @@ export async function invalidate(project: string, language: string, version: str
 export async function fetch(project: string, language: string, version: string): Promise<schema.Resource> {
     try {
         const versions = await schema.findVersions(project, language);
-        const maxVer = semver.maxSatisfying(versions, version);
+        const maxVer = semver.maxSatisfying(versions, version) as string;
 
         const resource = await schema.findValid(project, language, maxVer);
-        if(!resource) {
+        if (!resource) {
             throw error.newError(404, "Document not found");
         }
         return Promise.resolve(resource);
@@ -94,7 +99,23 @@ function validateProjectName(project: string) {
 }
 
 function validateLanguaje(language: string) {
-    if(!bcp47.validate(language)) {
+    if (!bcp47.validate(language)) {
         throw error.newArgumentError("language", "Language " + language + " is invalid.");
     }
+}
+
+
+/**
+ * Validate body to create resources
+ */
+function validateDocument(body: string) {
+    if (!Array.isArray(body)) {
+        throw error.newArgumentError("body", "Document must be an array.");
+    }
+
+    const data: schema.ResourceValue[] = body;
+
+    data.forEach(project => {
+        validateSchema<schema.ResourceValue>(postResourceSchema, project);
+    });
 }

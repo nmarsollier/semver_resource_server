@@ -2,6 +2,11 @@
 
 import { Document, model, Schema } from "mongoose";
 
+export interface ResourceValue {
+  key: string;
+  value: string;
+}
+
 export interface Resource extends Document {
   project: string;
   language: string;
@@ -9,11 +14,6 @@ export interface Resource extends Document {
   values: ResourceValue[];
   created?: Date;
   enabled?: boolean;
-}
-
-export interface ResourceValue {
-  key: string;
-  value: string;
 }
 
 const ResourceSchema = new Schema({
@@ -43,7 +43,7 @@ const ResourceSchema = new Schema({
   }
 }, { collection: "resources" });
 
-export async function findValid(project: string, language: string, semver: string): Promise<Resource> {
+export async function findValid(project: string, language: string, semver: string): Promise<Resource | null> {
   return Promise.resolve(await ResourceModel.findOne({
     project,
     language,

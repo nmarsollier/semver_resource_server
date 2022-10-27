@@ -3,7 +3,7 @@
 import * as database from "./server/database";
 import * as env from "./utils/environment";
 import { Config } from "./utils/environment";
-import * as express from "./server/express";
+import * as express from "./server/server";
 
 // Inicializamos la base de datos
 database.init();

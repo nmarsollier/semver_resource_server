@@ -9,9 +9,7 @@ export function getConfig(environment: any): Config {
 
     config = {
       port: process.env.SERVER_PORT || "3000",
-      mongoDb: process.env.MONGODB || "mongodb://localhost/resources_server",
-      redisHost: process.env.REDIS_HOST || "127.0.0.1",
-      redisPort: Number(process.env.REDIS_PORT || "6379")
+      mongoDb: process.env.MONGODB || "mongodb://localhost/resources_server"
     };
   }
   return config;
@@ -20,6 +18,4 @@ export function getConfig(environment: any): Config {
 export interface Config {
   port: string;
   mongoDb: string;
-  redisHost: string;
-  redisPort: number;
 }
